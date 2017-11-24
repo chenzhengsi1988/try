@@ -32,7 +32,7 @@ httpcode_total_500=[]
 request_time=[]
 is_good=[]
 
-file=open("/Users/zsc/Desktop/testdata.txt", 'r')
+file=open("/Users/zsc/Desktop/test.txt", 'r')
 for line in file :
     tweets.append(json.loads(line))
 file.close

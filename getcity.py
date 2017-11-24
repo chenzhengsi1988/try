@@ -21,12 +21,12 @@ tweets = []
 
 location_city=[]
 
-file=open("/Users/zsc/Desktop/testdata.txt", 'r')
+file=open("/Users/zsc/Desktop/test.txt", 'r')
 for line in file :
     tweets.append(json.loads(line))
 file.close
 
-
+print(tweets)
 for line in tweets:
 
 
@@ -68,3 +68,15 @@ for key in citydict:
     city_embed[key] = embeds(city_idx)
 print(city_embed)
 print(type(city_embed[key]))
+
+newdata={'location_city':location_city}
+print(newdata)
+frame =pd.DataFrame(newdata)
+add_c='embedding'
+print(frame)
+print(type(frame))
+# print(city_embed[])
+# frame[add_c] = frame.apply(lambda row: city_embed[row['location']], axis=1)
+print(frame)
+
+pd.DataFrame.to_csv(frame,'~/ml/data/citydata.txt')
