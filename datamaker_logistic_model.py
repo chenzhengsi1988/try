@@ -17,7 +17,7 @@ from sklearn.cross_validation import train_test_split
 import random
 
 # 读取数据
-data = pd.read_csv('~/ml/data/good_bad_data.txt')
+data = pd.read_csv('~/ml/data/good_bad_data_sort2.txt')
 # 拆分数据
 X_train, X_test, y_train, y_test = train_test_split(
     data[['status','httpcode_1d_200','httpcode_1d_302','httpcode_1d_404','httpcode_1d_403','httpcode_1d_500',

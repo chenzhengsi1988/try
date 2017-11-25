@@ -408,4 +408,4 @@ pd.DataFrame.to_csv(frame2,'~/ml/data/baddata.txt',encoding='utf8')
 
 alldata=[frame,frame2]
 result = pd.concat(alldata)
-pd.DataFrame.to_csv(result,'~/ml/data/good_bad_data_sort2.txt',encoding='utf8',index_label=sortlist,header=None,index=None)
+pd.DataFrame.to_csv(result,'~/ml/data/good_bad_data_sort2.txt',encoding='utf8',index_label=sortlist,index=None)
