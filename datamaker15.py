@@ -331,7 +331,7 @@ for line in tweets[0:300]:
         httpcode_30m_302.append(int(0))
 
     if '404' in line_httpcode_30m:
-        httpcode_30m_404.append(int(line_httpcode_30m['404'])+1)
+        httpcode_30m_404.append(int(line_httpcode_30m['404'])+3)
     else:
         httpcode_30m_404.append(int(0)+10)
 
