@@ -408,9 +408,9 @@ pd.DataFrame.to_csv(frame2,'~/ml/data/baddata.txt',encoding='utf8')
 
 alldata=[frame[0:2700],frame2[0:270]]
 result = pd.concat(alldata)
-pd.DataFrame.to_csv(result,'~/ml/data/good_bad_data_training.txt',encoding='utf8',index_label=sortlist,index=None,header=None)
+pd.DataFrame.to_csv(result,'~/ml/data/good_bad_data_training.txt',encoding='utf8',index_label=sortlist,index=None)
 
 
 alldata2=[frame[2700:3000],frame2[270:300]]
 result2 = pd.concat(alldata2)
-pd.DataFrame.to_csv(result2,'~/ml/data/good_bad_data_testing.txt',encoding='utf8',index_label=sortlist,index=None,header=None)
+pd.DataFrame.to_csv(result2,'~/ml/data/good_bad_data_testing.txt',encoding='utf8',index_label=sortlist,index=None)
