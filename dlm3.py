@@ -17,28 +17,26 @@ from sklearn.cross_validation import train_test_split
 import random
 
 # 读取数据
-data = pd.read_csv('~/ml/data/good_bad_data_training4.txt')
+data = pd.read_csv('~/ml/data/good_bad_data_training3_5.txt')
 # 拆分数据
 X_train, X_test, y_train, y_test = train_test_split(
-    data[['status','httpcode_1d_200','httpcode_1d_302','httpcode_1d_404','httpcode_1d_403','httpcode_1d_500',
-          'body_bytes_sent','upstream_response_time','httpcode_total_200','httpcode_total_302','httpcode_total_404',
-          'httpcode_5m_200','httpcode_5m_302','httpcode_5m_404','httpcode_5m_403','httpcode_5m_500',
-          'httpcode_30m_200','httpcode_30m_302','httpcode_30m_404','httpcode_30m_403','httpcode_30m_500',
-          'httpcode_total_403','httpcode_total_500','request_time']].values, data["is_good"].values.reshape(-1, 1),random_state=42)
+    data[['0','1','2','3','4','5','6','7','8','9','10',
+          '11','12','13','14','15','16','17','18','19','20',
+          '21','22','23','24']].values, data["is_good"].values.reshape(-1, 1),random_state=42)
 # one-hot 编码
 # print(y_train.shape)
 y_train = tf.concat([1 - y_train, y_train], 1)
 y_test = tf.concat([1 - y_test, y_test], 1)
 # print(y_train.shape)
 # 设置模型
-learning_rate = 0.0001
+learning_rate = 0.1
 training_epoch = 50
 batch_size = 100
 display_step = 1
 
 n_samples = X_train.shape[0]
 # print(n_samples)
-n_features = 24
+n_features = 25
 n_class = 2
 x = tf.placeholder(tf.float32, [None, n_features])
 y = tf.placeholder(tf.float32, [None, n_class])
