@@ -17,7 +17,7 @@ from sklearn.cross_validation import train_test_split
 import random
 
 # 读取数据
-data = pd.read_csv('~/ml/data/good_bad_data_training3_5.txt')
+data = pd.read_csv('~/ml/data/good_bad_data_training11_1.txt')
 # 拆分数据
 X_train, X_test, y_train, y_test = train_test_split(
     data[['0','1','2','3','4','5','6','7','8','9','10',
