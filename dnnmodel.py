@@ -2,7 +2,6 @@ import os
 import collections
 
 import tensorflow as tf
-from tensorflow.python.framework import ops
 
 # Check that we have correct TensorFlow version installed
 tf_version = tf.__version__
@@ -68,6 +67,8 @@ if __name__ == '__main__':
     PATH_DATASET = "dataset"
     TRAIN_URL = PATH_DATASET + os.sep + "security_training.txt"
     TEST_URL = PATH_DATASET + os.sep + "security_test.txt"
+
+    SERVABLE_MODEL_DIR = "serving_savemodel"
 
     tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -148,19 +149,18 @@ if __name__ == '__main__':
     # Create a deep neural network regression classifier
     # Use the DNNClassifier pre-made estimator
     classifier = tf.estimator.DNNClassifier(
-        feature_columns=feature_columns,  # The input features to our model
-        hidden_units=[100, 50, 10],  # Two layers, each with 10 neurons
-        optimizer=tf.train.AdamOptimizer(
-          learning_rate=0.01
+        feature_columns=feature_columns,
+        hidden_units=[100, 50, 10],
+        optimizer=tf.train.ProximalAdagradOptimizer(
+            learning_rate=0.1,
+            l1_regularization_strength=0.001
         ),
         n_classes=2,
         model_dir=PATH)  # Path to where checkpoints etc are stored
 
-    train_input_fn = create_train_input_fn(TRAIN_URL, label_name='is_good', repeat_count=100)
+    train_input_fn = create_train_input_fn(TRAIN_URL, label_name='is_good', repeat_count=1)
     test_input_fn = create_train_input_fn(TEST_URL, label_name='is_good')
-    # Train our model, use the previously function my_input_fn
-    # Input to training is a file with training example
-    # Stop training after 8 iterations of train data (epochs)
+
     classifier.train(
         input_fn=train_input_fn )
 
@@ -173,7 +173,6 @@ if __name__ == '__main__':
     for key in evaluate_result:
         print("   {}, was: {}".format(key, evaluate_result[key]))
 
-    #classifier.export_savedmodel(MODEL_PATH, serving_input_receiver_fn=serving_input_receiver_fn)
-
-    #import os
-    #os.system('rm -r /Users/wdai/work/ml/DNN/tf_dataset_and_estimator_apis/*')
+    feature_spec = tf.feature_column.make_parse_example_spec(feature_columns)
+    export_input_fn = tf.estimator.export.build_parsing_serving_input_receiver_fn(feature_spec)
+    servable_model_path = classifier.export_savedmodel(SERVABLE_MODEL_DIR, export_input_fn)

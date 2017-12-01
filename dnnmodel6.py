@@ -1,8 +1,19 @@
+
+from __future__ import print_function, division
+
 import os
 import collections
-
+from pandas import Series, DataFrame
 import tensorflow as tf
 from tensorflow.python.framework import ops
+
+import tensorflow as tf
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn
+# from sklearn.cross_validation import train_test_split
+import random
 
 # Check that we have correct TensorFlow version installed
 tf_version = tf.__version__
@@ -67,10 +78,78 @@ if __name__ == '__main__':
 
     PATH_DATASET = "~/TensorFlow-Examples/1_Introduction"
     TRAIN_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_training4.csv'
-    TEST_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test4.csv'
+    # TEST_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test3.csv'
+    TESTo_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test4.csv'
+    MS_URL='/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/mean_std.csv'
+    MS=pd.read_csv(MS_URL)
+    TEST = pd.read_csv(TESTo_URL)
+    mup=MS['mean']
+    stdp=MS['std']
+    # print(mup)
+    # print(stdp)
+
+    listdatao = [
+        'status',
+        'location_speed',
+        'httpcode_5m_200',
+        'httpcode_5m_302',
+        'httpcode_5m_404',
+        'httpcode_5m_403',
+        'httpcode_5m_500',
+        'httpcode_30m_200',
+        'httpcode_30m_302',
+        'httpcode_30m_404',
+        'httpcode_30m_403',
+        'httpcode_30m_500',
+        'httpcode_1d_200',
+        'httpcode_1d_302',
+        'httpcode_1d_404',
+        'httpcode_1d_403',
+        'httpcode_1d_500',
+        'body_bytes_sent',
+        'upstream_response_time',
+        'httpcode_total_200',
+        'httpcode_total_302',
+        'httpcode_total_404',
+        'httpcode_total_403',
+        'httpcode_total_500',
+        'request_time']
+
+    sortlist3 = [
+        'lremote_addr',
+        'location_city',
+        'is_good']
+
+    datao=TEST.reindex(columns=listdatao)
+    datao2=TEST.reindex(columns=sortlist3)
+    # print(TEST[listdatao[0]][0])
+    print(type(datao))
+    fs1, fs2 = datao.shape
+    # print(fs1)
+    # print(fs2)
+    # print(meanp)
+    # print(stdp)
+    # print(frameanp2.shape)
+    fdatao = np.array(datao)
+    print(fdatao)
+    fdatao2 =fdatao
+    # F_scaled2 = np.zeros((fs1, fs2))
+    # # print(F_scaled3[1][1])
+    for i in range(0, fs1):
+        for j in range(0, fs2):
+            fdatao2[i][j] = (fdatao[i][j] - mup[j]) / stdp[j]
 
 
+    # print(fdatao2)
 
+    sfdatao2=DataFrame(fdatao2)
+
+    alldata = [sfdatao2, datao2]
+    sff = pd.concat(alldata, axis=1)
+
+    pd.DataFrame.to_csv(sff, '~/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test_f.csv', encoding='utf8',header=None,
+                        index=None)
+    TEST_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test_f.csv'
     # PATH = "tf_dataset_and_estimator_apis"
     #
     # PATH_DATASET = "dataset"
@@ -164,7 +243,7 @@ if __name__ == '__main__':
         n_classes=2,
         model_dir=PATH)  # Path to where checkpoints etc are stored
 
-    train_input_fn = create_train_input_fn(TRAIN_URL, label_name='is_good', repeat_count=40)
+    train_input_fn = create_train_input_fn(TRAIN_URL, label_name='is_good', repeat_count=5)
     test_input_fn = create_train_input_fn(TEST_URL, label_name='is_good')
 
     # with tf.Session() as sess:
