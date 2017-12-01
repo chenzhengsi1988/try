@@ -40,7 +40,9 @@ myset = set(mylist)
 listo=list()
 
 for each in myset:
+    print(type(each))
     each=unicode(each, encoding="utf-8")
+    print(type(each))
     listo.append(each)
     print(each)
 
@@ -78,3 +80,10 @@ hello_idx = torch.LongTensor([word_to_ix['上海']])
 hello_idx = Variable(hello_idx)
 hello_embed = embeds(hello_idx)
 print(hello_embed)
+
+
+
+# try1=['上海']
+# unicode(try1, encoding="utf-8")
+# try1=['上海','云南']
+# unicode(try1, encoding="utf-8")

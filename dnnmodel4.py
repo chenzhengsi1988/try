@@ -66,8 +66,8 @@ if __name__ == '__main__':
     PATH = "tf_dataset_and_estimator_apis"
 
     PATH_DATASET = "~/TensorFlow-Examples/1_Introduction"
-    TRAIN_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_training.csv'
-    TEST_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test.csv'
+    TRAIN_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_training2.csv'
+    TEST_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test2.csv'
 
 
     # PATH = "tf_dataset_and_estimator_apis"
