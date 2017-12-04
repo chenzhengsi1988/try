@@ -77,10 +77,10 @@ if __name__ == '__main__':
     PATH = "tf_dataset_and_estimator_apis"
 
     PATH_DATASET = "~/TensorFlow-Examples/1_Introduction"
-    TRAIN_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_training_v_2.csv'
+    TRAIN_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_training_v_3.csv'
     # TEST_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test3.csv'
-    TESTo_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test_v_2.csv'
-    MS_URL='/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/mean_std_v_2.csv'
+    TESTo_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test_v_3.csv'
+    MS_URL='/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/mean_std_v_3.csv'
     MS=pd.read_csv(MS_URL)
     TEST = pd.read_csv(TESTo_URL)
     mup=MS['mean']
@@ -186,7 +186,7 @@ if __name__ == '__main__':
         ('request_time', [0.0]),
         ('lremote_addr', ['']),
         ('location_city', ['']),
-        ('is_good', [0])]
+        ('label', [0])]
     )
 
     # Feature columns describe how to use the input.
@@ -236,15 +236,15 @@ if __name__ == '__main__':
     # Use the DNNClassifier pre-made estimator
     classifier = tf.estimator.DNNClassifier(
         feature_columns=feature_columns,  # The input features to our model
-        hidden_units=[100,50],  # Two layers, each with 10 neurons
+        hidden_units=[400,200,100,50],  # Two layers, each with 10 neurons
         optimizer=tf.train.AdamOptimizer(
-          learning_rate=0.0001
+          learning_rate=0.01
         ),
-        n_classes=2,
+        n_classes=4,
         model_dir=PATH)  # Path to where checkpoints etc are stored
 
-    train_input_fn = create_train_input_fn(TRAIN_URL, label_name='is_good', repeat_count=10)
-    test_input_fn = create_train_input_fn(TEST_URL, label_name='is_good')
+    train_input_fn = create_train_input_fn(TRAIN_URL, label_name='label', repeat_count=100)
+    test_input_fn = create_train_input_fn(TEST_URL, label_name='label')
 
     # with tf.Session() as sess:
     #         print sess.run(test_input_fn)
@@ -264,9 +264,7 @@ if __name__ == '__main__':
     for key in evaluate_result:
         print("   {}, was: {}".format(key, evaluate_result[key]))
     print(evaluate_result)
-
-    # {'loss': 11.98338, 'accuracy_baseline': 0.73939395, 'global_step': 929, 'auc': 0.92053467, 'prediction/mean': 0.81986403, 'label/mean': 0.73939395, 'average_loss': 0.374753, 'auc_precision_recall': 0.97038209, 'accuracy': 0.80000001}
-
+    # {'average_loss': 3.701406, 'accuracy': 0.77575755, 'global_step': 18564, 'loss': 118.35891}
     #classifier.export_savedmodel(MODEL_PATH, serving_input_receiver_fn=serving_input_receiver_fn)
 
     #import os
