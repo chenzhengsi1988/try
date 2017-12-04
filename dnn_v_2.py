@@ -1,7 +1,19 @@
+
+from __future__ import print_function, division
+
 import os
 import collections
+from pandas import Series, DataFrame
+import tensorflow as tf
+from tensorflow.python.framework import ops
 
 import tensorflow as tf
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn
+# from sklearn.cross_validation import train_test_split
+import random
 
 # Check that we have correct TensorFlow version installed
 tf_version = tf.__version__
@@ -64,11 +76,85 @@ if __name__ == '__main__':
     # Fetch and store Training and Test dataset files
     PATH = "tf_dataset_and_estimator_apis"
 
-    PATH_DATASET = "dataset"
-    TRAIN_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_training.csv'
-    TEST_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test.csv'
+    PATH_DATASET = "~/TensorFlow-Examples/1_Introduction"
+    TRAIN_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_training_v_2.csv'
+    # TEST_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test3.csv'
+    TESTo_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test_v_2.csv'
+    MS_URL='/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/mean_std_v_2.csv'
+    MS=pd.read_csv(MS_URL)
+    TEST = pd.read_csv(TESTo_URL)
+    mup=MS['mean']
+    stdp=MS['std']
+    # print(mup)
+    # print(stdp)
 
-    SERVABLE_MODEL_DIR = "serving_savemodel"
+    listdatao = [
+        'status',
+        'location_speed',
+        'httpcode_5m_200',
+        'httpcode_5m_302',
+        'httpcode_5m_404',
+        'httpcode_5m_403',
+        'httpcode_5m_500',
+        'httpcode_30m_200',
+        'httpcode_30m_302',
+        'httpcode_30m_404',
+        'httpcode_30m_403',
+        'httpcode_30m_500',
+        'httpcode_1d_200',
+        'httpcode_1d_302',
+        'httpcode_1d_404',
+        'httpcode_1d_403',
+        'httpcode_1d_500',
+        'body_bytes_sent',
+        'upstream_response_time',
+        'httpcode_total_200',
+        'httpcode_total_302',
+        'httpcode_total_404',
+        'httpcode_total_403',
+        'httpcode_total_500',
+        'request_time']
+
+    sortlist3 = [
+        'lremote_addr',
+        'location_city',
+        'is_good']
+
+    datao=TEST.reindex(columns=listdatao)
+    datao2=TEST.reindex(columns=sortlist3)
+    # print(TEST[listdatao[0]][0])
+    # print(type(datao))
+    fs1, fs2 = datao.shape
+    # print(fs1)
+    # print(fs2)
+    # print(meanp)
+    # print(stdp)
+    # print(frameanp2.shape)
+    fdatao = np.array(datao)
+    # print(fdatao)
+    fdatao2 =fdatao
+    # F_scaled2 = np.zeros((fs1, fs2))
+    # # print(F_scaled3[1][1])
+    for i in range(0, fs1):
+        for j in range(0, fs2):
+            fdatao2[i][j] = (fdatao[i][j] - mup[j]) / stdp[j]
+
+
+    # print(fdatao2)
+
+    sfdatao2=DataFrame(fdatao2)
+
+    alldata = [sfdatao2, datao2]
+    sff = pd.concat(alldata, axis=1)
+
+    pd.DataFrame.to_csv(sff, '~/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test_f.csv', encoding='utf8',header=None,
+                        index=None)
+    TEST_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test_f.csv'
+    # PATH = "tf_dataset_and_estimator_apis"
+    #
+    # PATH_DATASET = "dataset"
+    # TRAIN_URL = PATH_DATASET + os.sep + "security_test.csv"
+    # TEST_URL = PATH_DATASET + os.sep + "security_test.csv"
 
     tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -149,18 +235,23 @@ if __name__ == '__main__':
     # Create a deep neural network regression classifier
     # Use the DNNClassifier pre-made estimator
     classifier = tf.estimator.DNNClassifier(
-        feature_columns=feature_columns,
-        hidden_units=[100, 50, 10],
-        optimizer=tf.train.ProximalAdagradOptimizer(
-            learning_rate=0.1,
-            l1_regularization_strength=0.001
+        feature_columns=feature_columns,  # The input features to our model
+        hidden_units=[100,30],  # Two layers, each with 10 neurons
+        optimizer=tf.train.AdamOptimizer(
+          learning_rate=0.001
         ),
         n_classes=2,
         model_dir=PATH)  # Path to where checkpoints etc are stored
 
-    train_input_fn = create_train_input_fn(TRAIN_URL, label_name='is_good', repeat_count=1)
+    train_input_fn = create_train_input_fn(TRAIN_URL, label_name='is_good', repeat_count=50)
     test_input_fn = create_train_input_fn(TEST_URL, label_name='is_good')
 
+    # with tf.Session() as sess:
+    #         print sess.run(test_input_fn)
+
+    # Train our model, use the previously function my_input_fn
+    # Input to training is a file with training example
+    # Stop training after 8 iterations of train data (epochs)
     classifier.train(
         input_fn=train_input_fn )
 
@@ -173,6 +264,7 @@ if __name__ == '__main__':
     for key in evaluate_result:
         print("   {}, was: {}".format(key, evaluate_result[key]))
 
-    feature_spec = tf.feature_column.make_parse_example_spec(feature_columns)
-    export_input_fn = tf.estimator.export.build_parsing_serving_input_receiver_fn(feature_spec)
-    servable_model_path = classifier.export_savedmodel(SERVABLE_MODEL_DIR, export_input_fn)
+    #classifier.export_savedmodel(MODEL_PATH, serving_input_receiver_fn=serving_input_receiver_fn)
+
+    #import os
+    #os.system('rm -r /Users/wdai/work/ml/DNN/tf_dataset_and_estimator_apis/*')

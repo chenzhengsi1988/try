@@ -13,9 +13,10 @@ from grpc.beta import implementations
 from tensorflow_serving.apis import predict_pb2
 from tensorflow_serving.apis import prediction_service_pb2
 
-tf.app.flags.DEFINE_string('server', 'ec2-54-223-108-235.cn-north-1.compute.amazonaws.com.cn:9000',
+tf.app.flags.DEFINE_string('server', 'localhost:9000',
                            'Server host:port.')
-tf.app.flags.DEFINE_string('model', 'DNN','Model name.')
+tf.app.flags.DEFINE_string('model', 'DNN',
+                           'Model name.')
 FLAGS = tf.app.flags.FLAGS
 
 def _float_feature(value):

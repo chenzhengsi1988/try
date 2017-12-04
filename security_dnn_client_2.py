@@ -39,10 +39,29 @@ def main(_):
     request.model_spec.signature_name = 'serving_default'
 
 
-    with open('/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test.csv', 'rb') as f:
+    with open('/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test001.csv', 'rb') as f:
         reader = unicode_csv_reader(f)
-        data_list = list(reader)
 
+        # print(type(reader))
+        data_list = list(reader)
+        # print(data_list)
+        # print(len(data_list))
+        # print(data_list[1][1])
+        # print(len(data_list[1]))
+
+    with open('/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/mean_std001.csv', 'rb') as f:
+        reader2 = unicode_csv_reader(f)
+
+        meanstd= list(reader2)
+        # print(len(meanstd[0]))
+
+    fs1=len(data_list)
+    fs2=len(data_list[0])
+
+    for i in range(0, fs1):
+        for j in range(0, fs2-3):
+            data_list[i][j] = (float(data_list[i][j]) - float(meanstd[j+1][0])) / float(meanstd[j+1][1])
+    # print(data_list[0:10])
     accu = 0
     neg = 0
     start = time.time()

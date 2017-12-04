@@ -31,10 +31,10 @@ from tensorflow_serving.apis import prediction_service_pb2
 tf.app.flags.DEFINE_integer('concurrency', 100,
                             'maximum number of concurrent inference requests')
 tf.app.flags.DEFINE_integer('num_tests', 10000, 'Number of test images')
-tf.app.flags.DEFINE_string('server', 'localhost:9000', 'PredictionService host:port')
+tf.app.flags.DEFINE_string('server', 'ec2-54-223-108-235.cn-north-1.compute.amazonaws.com.cn:9000', 'PredictionService host:port')
 tf.app.flags.DEFINE_string('model', 'DNN', 'Model name.')
 FLAGS = tf.app.flags.FLAGS
-DATA_FILE = 'dataset/security_training.csv'
+DATA_FILE = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_training.csv'
 
 class _ResultCounter(object):
     """Counter for the prediction results."""
