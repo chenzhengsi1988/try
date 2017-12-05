@@ -35,7 +35,7 @@ name=['status',
  'httpcode_total_403',
  'httpcode_total_500',
  'request_time',
- 'lremote_addr',
+ 'remote_addr',
  'location_city',
  'label']
 undefined=[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
@@ -111,7 +111,7 @@ sortlist=['status',
  'httpcode_total_403',
  'httpcode_total_500',
  'request_time',
- 'lremote_addr',
+ 'remote_addr',
  'location_city',
  'label']
 
@@ -145,7 +145,7 @@ sortlist2=[
 ]
 
 sortlist3=[
- 'lremote_addr',
+ 'remote_addr',
  'location_city',
  'label']
 
@@ -271,7 +271,7 @@ newdata={
          'status':status,
          'location_speed':location_speed,
          'location_city':location_city,
-         'lremote_addr':remote_addr,
+         'remote_addr':remote_addr,
          'httpcode_5m_200': httpcode_5m_200,
          'httpcode_5m_302': httpcode_5m_302,
          'httpcode_5m_404': httpcode_5m_404,
