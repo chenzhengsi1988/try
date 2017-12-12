@@ -96,7 +96,7 @@ def main(_):
             'httpcode_total_403': _float_feature(value=row[22]),
             'httpcode_total_500': _float_feature(value=row[23]),
             'request_time': _float_feature(value=row[24]),
-            'lremote_addr': _bytes_feature(value=row[25].encode()),
+            'remote_addr': _bytes_feature(value=row[25].encode()),
             'location_city': _bytes_feature(value=row[26].encode(encoding='utf-8'))
         }
         label = row[27]

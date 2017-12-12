@@ -65,8 +65,8 @@ if __name__ == '__main__':
     PATH = "tf_dataset_and_estimator_apis"
 
     PATH_DATASET = "dataset"
-    TRAIN_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_training_v_3.csv'
-    TEST_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test_f.csv'
+    TRAIN_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_training_v_speed1211.csv'
+    TEST_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test_fspeed.csv'
 
     SERVABLE_MODEL_DIR = "serving_savemodel"
 

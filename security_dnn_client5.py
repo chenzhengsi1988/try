@@ -49,11 +49,11 @@ def main(_):
     request.model_spec.signature_name = 'serving_default'
 
 
-    with open('/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test003.csv', 'rb') as f:
+    with open('/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_testspeed1212.csv', 'rb') as f:
         reader = unicode_csv_reader(f)
         data_list = list(reader)
 
-    with open('/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/mean_std001.csv', 'rb') as f:
+    with open('/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/mean_stdspeed1212.csv', 'rb') as f:
         reader2 = unicode_csv_reader(f)
         meanstd= list(reader2)
 

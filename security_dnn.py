@@ -65,8 +65,8 @@ if __name__ == '__main__':
     PATH = "tf_dataset_and_estimator_apis"
 
     PATH_DATASET = "dataset"
-    TRAIN_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_training_v_3.csv'
-    TEST_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test_f.csv'
+    TRAIN_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_training_v_speed1211.csv'
+    TEST_URL = '/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/security_test_fspeed.csv'
 
     SERVABLE_MODEL_DIR = "serving_savemodel"
 
@@ -100,7 +100,7 @@ if __name__ == '__main__':
         ('request_time', [0.0]),
         ('lremote_addr', ['']),
         ('location_city', ['']),
-        ('is_good', [0])]
+        ('label', [0])]
     )
 
     # Feature columns describe how to use the input.
@@ -155,11 +155,11 @@ if __name__ == '__main__':
             learning_rate=0.1,
             l1_regularization_strength=0.001
         ),
-        n_classes=4,
+        n_classes=2,
         model_dir=PATH)  # Path to where checkpoints etc are stored
 
-    train_input_fn = create_train_input_fn(TRAIN_URL, label_name='is_good', repeat_count=1)
-    test_input_fn = create_train_input_fn(TEST_URL, label_name='is_good')
+    train_input_fn = create_train_input_fn(TRAIN_URL, label_name='label', repeat_count=50)
+    test_input_fn = create_train_input_fn(TEST_URL, label_name='label')
 
     classifier.train(
         input_fn=train_input_fn )
