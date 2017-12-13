@@ -150,10 +150,10 @@ if __name__ == '__main__':
     # Use the DNNClassifier pre-made estimator
     classifier = tf.estimator.DNNClassifier(
         feature_columns=feature_columns,
-        hidden_units=[400, 200, 100],
+        hidden_units=[800, 400, 200,100,50],
         optimizer=tf.train.ProximalAdagradOptimizer(
-            learning_rate=0.1,
-            l1_regularization_strength=0.001
+            learning_rate=0.001,
+            l1_regularization_strength=0.01
         ),
         n_classes=2,
         model_dir=PATH)  # Path to where checkpoints etc are stored

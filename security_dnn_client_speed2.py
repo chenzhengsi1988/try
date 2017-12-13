@@ -117,17 +117,21 @@ def goodluck(data_list,request,stub):
 
         print('True label: ' + str(label))
         print('Prediction: ' + str(np.argmax(prediction.float_val)))
-        if int(label) == int(np.argmax(prediction.float_val)):
+        if int(label) == int(np.argmax(prediction.float_val)) and int(label)==1:
+        # if int(label) == 1:
+        # if int(label) == int(np.argmax(prediction.float_val)):
+
+
             accu += 1
         else:
             neg += 1
 
-    print("Precision: ", accu / (accu + neg))
+    print("Precision: ", accu )
     print("time: ",time.time() - start)
     print("Speed: ", (time.time() - start) / (accu + neg))
 
     global timer
-    timer = threading.Timer(2.0, goodluck, [data_list,request,stub])
+    timer = threading.Timer(20.0, goodluck, [data_list,request,stub])
     timer.start()
 
     time.sleep(20)
