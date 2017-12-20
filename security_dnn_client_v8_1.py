@@ -143,7 +143,7 @@ def goodluck(data_list,request,stub):
     print("Speed: ", (time.time() - start) / (accu + neg))
 
     global timer
-    timer = threading.Timer(20.0, goodluck, [data_list,request,stub])
+    timer = threading.Timer(2.0, goodluck, [data_list,request,stub])
     timer.start()
 
     time.sleep(20)
