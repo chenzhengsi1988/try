@@ -1,5 +1,6 @@
 #coding:UTF-8
 import time
+import datetime
 
 # dt = "1970-01-02 08:00:00"
 dt="Thu Jan 01 08:00:00 CST 1970"
@@ -22,3 +23,9 @@ print timestamp
 # dt_new = time.strftime("%Y%m%d-%H:%M:%S",timeArray)
 #
 # print dt_new
+
+timeStamp = 1403902800
+dateArray = datetime.datetime.utcfromtimestamp(timeStamp)
+otherStyleTime = dateArray.strftime("%Y-%m-%d %H:%M:%S")
+# otherStyletime == "2013-10-10 23:40:00"
+print(otherStyleTime)

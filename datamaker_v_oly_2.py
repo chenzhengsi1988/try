@@ -5,7 +5,7 @@ import pandas as pd
 import math
 import random
 from pandas import Series, DataFrame
-c=math.pi*2/7/24
+c=math.pi*2/24/7
 lam=5
 # size=24*28
 # np.random.seed(0)
@@ -13,8 +13,12 @@ lam=5
 # tlist=[]
 # plist=np.random.poisson(lam, 1)
 
-dt1 = "2017-11-01 08:00:00"
-dt2="2017-11-29 08:00:00"
+# dt1 = "2017-11-01 08:00:00"
+# dt2="2017-11-29 08:00:00"
+# dt1="2014-07-26 12:00:00"
+# dt2="2014-08-23 12:00:00"
+dt1="2014-06-28 13:00:00"
+dt2="2014-07-26 13:00:00"
 timeArray1 = time.strptime(dt1,"%Y-%m-%d %H:%M:%S")
 timeArray2 = time.strptime(dt2,"%Y-%m-%d %H:%M:%S")
 
@@ -22,8 +26,8 @@ timeArray2 = time.strptime(dt2,"%Y-%m-%d %H:%M:%S")
 #转换成时间戳
 timestamp_begin = time.mktime(timeArray1)
 timestamp_end = time.mktime(timeArray2)
-
-for iuid in range(100,201):
+print timestamp_begin
+for iuid in range(100,111):
     # np.random.seed(0)
     plist = []
     tlist = []
@@ -39,9 +43,14 @@ for iuid in range(100,201):
         # np.random.seed(0)
         B=np.random.normal(0,1,1)
         # np.random.seed(1)
-        B1=np.random.normal(0,1,1)
-        s=1000*A*math.sin(c*i)+B[0]
-        s1=1000*A*math.sin(c*i)+B1[0]
+        # B1=np.random.normal(0,1,1)
+
+        s=10*A*math.sin(c*i)
+        s1=10*A*math.sin(c*i)
+        if i==2:
+            s1=s1+B[0]
+        if i == 7:
+            s1=s1+B[0]
         # print s
         # print s1
         # print A
@@ -57,7 +66,7 @@ for iuid in range(100,201):
     ftp = pd.DataFrame(tp)
     sortlist = ['timestamp', 'value']
     ftp = ftp.reindex(columns=sortlist)
-    pd.DataFrame.to_csv(ftp,'/Users/zsc/ml/data_olympic/train/'+ str(iuid)+'.csv',encoding='utf8', index=None)
+    pd.DataFrame.to_csv(ftp,'/Users/zsc/ml/data_olympic/train5/'+ str(iuid)+'.csv',encoding='utf8', index=None)
 
     tp1 = {'timestamp': tlist,
           'value': ptlist
@@ -69,7 +78,7 @@ for iuid in range(100,201):
     # print ftp1
     # print ['~/ml/olympic_data/training/'str(iuid),'.csv']
     # pd.DataFrame.to_csv(ftp,'/Users/zsc/ml/data_olympic/training/'+ str(iuid)+'.csv',encoding='utf8', index=None)
-    pd.DataFrame.to_csv(ftp1,'/Users/zsc/ml/data_olympic/test/'+ str(iuid)+'.csv',encoding='utf8', index=None)
+    pd.DataFrame.to_csv(ftp1,'/Users/zsc/ml/data_olympic/test5/'+ str(iuid)+'.csv',encoding='utf8', index=None)
 
 
 # print ftp
