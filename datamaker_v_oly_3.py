@@ -64,7 +64,7 @@ for iuid in range(100,111):
     ftp = pd.DataFrame(tp)
     sortlist = ['timestamp', 'value']
     ftp = ftp.reindex(columns=sortlist)
-    pd.DataFrame.to_csv(ftp,'/Users/zsc/ml/data_olympic/train2/'+ str(iuid)+'.csv',encoding='utf8', index=None)
+    pd.DataFrame.to_csv(ftp,'/Users/zsc/ml/data_olympic/training2/'+ str(iuid)+'.csv',encoding='utf8', index=None)
 
     tp1 = {'timestamp': tlist,
           'value': ptlist
@@ -76,7 +76,7 @@ for iuid in range(100,111):
     # print ftp1
     # print ['~/ml/olympic_data/training/'str(iuid),'.csv']
     # pd.DataFrame.to_csv(ftp,'/Users/zsc/ml/data_olympic/training/'+ str(iuid)+'.csv',encoding='utf8', index=None)
-    pd.DataFrame.to_csv(ftp1,'/Users/zsc/ml/data_olympic/test2/'+ str(iuid)+'.csv',encoding='utf8', index=None)
+    pd.DataFrame.to_csv(ftp1,'/Users/zsc/ml/data_olympic/testing2/'+ str(iuid)+'.csv',encoding='utf8', index=None)
 
 
 # print ftp
