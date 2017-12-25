@@ -50,7 +50,7 @@ type=['float','float','float','float','float','float','float','float','float','f
       'float','float','float','float','float','float','float','float','float','float',
       'float', 'float', 'float', 'float', 'float','str','str','int']
 
-with open('/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/mean_stdspeed1215.csv', 'rb') as f:
+with open('/Users/zsc/ml/DNN/tf_dataset_and_estimator_apis/dataset/mean_stdspeed1224.csv', 'rb') as f:
     reader2 = unicode_csv_reader(f)
     meanstd = list(reader2)
 # print(meanstd)
@@ -77,4 +77,4 @@ pl={'name':name,
 fpl =pd.DataFrame(pl)
 sortlist=['name','undefined','type','mean','std']
 fpl=fpl.reindex(columns=sortlist)
-pd.DataFrame.to_csv(fpl,'~/ml/data/pl5.csv',encoding='utf8',index=None)
+pd.DataFrame.to_csv(fpl,'~/ml/data/pl6.csv',encoding='utf8',index=None)
