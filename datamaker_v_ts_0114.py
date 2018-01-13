@@ -5,10 +5,9 @@ import pandas as pd
 import math
 import json
 tweets=[]
-flist=['request','login','logout','SP_UPDATE','default','USER_CREATE','USER_DELETE','IDP_UPDATE','SP_CREATE','SP_DELETE','UAC_CREATE','UAC_DELETE']
+flist=[]
 
-
-file=open("/Users/zsc/Desktop/vegachen@yufuid.com.txt", 'r')
+file=open("/Users/zsc/Desktop/user-13885241-9d05-461f-822e-28f9c045de0e.txt", 'r')
 uid='user-13885241-9d05-461f-822e-28f9c045de0e'
 # print(file)
 for line in file :
@@ -17,6 +16,10 @@ for line in file :
 # tweets['request']
 for line in tweets:
     alldata=line
+
+for key in alldata:
+    flist.append(key)
+print flist
     # request=line['request']
     # login = line['login']
     # logout = line['logout']
@@ -54,8 +57,8 @@ for fname in  flist:
     ftp = pd.DataFrame(tp)
     sortlist = ['timestamp', fname]
     ftp = ftp.reindex(columns=sortlist)
-    pd.DataFrame.to_csv(ftp, '/Users/zsc/source/egads_allseeing/src/test/resources/training2/' + uid+'_'+fname+ '.csv', encoding='utf8', index=None)
-    pd.DataFrame.to_csv(ftp, '/Users/zsc/source/egads_allseeing/src/test/resources/testing2/' + uid+'_'+ fname+ '.csv', encoding='utf8', index=None)
+    pd.DataFrame.to_csv(ftp, '/Users/zsc/source/egads/src/test/resources/train_sid3/' + uid+'_'+fname+ '.csv', encoding='utf8', index=None)
+    pd.DataFrame.to_csv(ftp, '/Users/zsc/source/egads/src/test/resources/test_sid3/' + uid+'_'+ fname+ '.csv', encoding='utf8', index=None)
 
 
 
