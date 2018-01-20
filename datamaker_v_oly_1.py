@@ -5,7 +5,7 @@ import pandas as pd
 import math
 import random
 from pandas import Series, DataFrame
-c=math.pi*2/7/24
+c=math.pi*2/24
 lam=5
 # size=24*28
 # np.random.seed(0)
@@ -23,7 +23,7 @@ timeArray2 = time.strptime(dt2,"%Y-%m-%d %H:%M:%S")
 timestamp_begin = time.mktime(timeArray1)
 timestamp_end = time.mktime(timeArray2)
 
-for iuid in range(100,201):
+for iuid in range(10000001,10000011):
     # np.random.seed(0)
     plist = []
     tlist = []
@@ -33,19 +33,24 @@ for iuid in range(100,201):
     i=0
     # np.random.seed(0)
     # np.random.seed(0)
-    A=np.random.randint(1, 9)
+    # A=np.random.randint(10, 15)
+    A=20
     # print A
     for itime in range(int(timestamp_begin), int(timestamp_end), 3600):
         # np.random.seed(0)
-        B=np.random.normal(0,1,1)
+        B=np.random.normal(3,5,1)
         # np.random.seed(1)
-        B1=np.random.normal(0,1,1)
-        s=1000*A*math.sin(c*i)+B[0]
-        s1=1000*A*math.sin(c*i)+B1[0]
+        B1=np.random.normal(3,5,1)
+        s=A*math.sin(c*i)
+        s1=A*math.sin(c*i)
         # print s
         # print s1
         # print A
         i=i+1
+        if s<0:
+            s=np.random.randint(3,6)
+        if s1<0:
+            s1=np.random.randint(3,6)
         plist.append(s)
         tlist.append(itime)
         ptlist.append(s1)
