@@ -484,3 +484,4 @@ pd.DataFrame.to_csv(result,'~/ml/data/good_bad_data_training3_2.txt',encoding='u
 alldata2=[sframe[2700:3000],sframe2[2700:3000]]
 result2 = pd.concat(alldata2)
 pd.DataFrame.to_csv(result2,'~/ml/data/good_bad_data_testing3_2.txt',encoding='utf8',index=None)
+# print(is_good)
